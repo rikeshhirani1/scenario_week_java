@@ -1,0 +1,92 @@
+.dragicon {
+	-fx-background-radius: 10;
+}
+/*
+.cubic-icon {
+	-fx-fill:
+	rgba(80.0, 80.0, 80.0, 0.0);
+
+	-fx-stroke: black;
+}
+*/
+.node-overlay {
+	-fx-background-radius: 10 10 0 0;
+	-fx-background-color:
+	linear-gradient(to bottom, rgba(255,255,255,0.7) 15%, rgba(50,100,150,0.45) 100%);
+
+}
+/*
+.right-link-handle:hover {
+	-fx-background-radius: 0 0 10 0;
+	-fx-background-color:
+	rgba(255, 255, 255, 0.35);
+}
+
+.left-link-handle:hover {
+	-fx-background-radius: 0 0 0 10;
+	-fx-background-color:
+	rgba(255, 255, 255, 0.35);
+}
+*/
+.icon-blue {
+	-fx-background-color: white;
+	-fx-background-image: url('closed_switch.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.icon-red {
+	-fx-background-color: white;
+	-fx-background-image: url('LED.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.icon-green {
+	-fx-background-color: white;
+	-fx-background-image: url('open_switch.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.icon-black {
+	-fx-background-color: white;
+	-fx-background-image: url('lamp.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.icon-grey {
+	-fx-background-color: white;
+	-fx-background-image: url('cell.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.icon-yellow {
+	-fx-background-color: white;
+	-fx-background-image: url('button_switch.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.icon-purple {
+	-fx-background-color: white;
+	-fx-background-image: url('resistor.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
