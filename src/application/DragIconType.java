@@ -8,5 +8,6 @@ public enum DragIconType {
 	black,
 	yellow,
 	purple,
+	wire,
 	grey
 }

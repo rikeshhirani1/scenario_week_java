@@ -1,5 +1,6 @@
 .dragicon {
 	-fx-background-radius: 10;
+	-fx-background-color: transparent;
 }
 /*
 .cubic-icon {
@@ -85,6 +86,15 @@
 .icon-purple {
 	-fx-background-color: white;
 	-fx-background-image: url('resistor.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.wire{
+	-fx-background-color: white;
+	-fx-background-image: url('wire.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-position: center;
   	-fx-border-width: 2px;

@@ -58,8 +58,8 @@ public class RootLayout extends AnchorPane{
 		mDragOverIcon.setOpacity(0.65);
 		getChildren().add(mDragOverIcon);
 
-		//populate left pane with multiple colored icons for testing
-		for (int i = 1; i < 8; i++) {
+		//populate left pane with multiple coloured icons for testing
+		for (int i = 1; i < 9; i++) {
 
 			DragIcon icn = new DragIcon();
 
