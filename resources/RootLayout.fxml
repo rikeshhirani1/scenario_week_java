@@ -9,9 +9,9 @@
 
 <fx:root fx:id="root_pane" minHeight="200.0" minWidth="200.0" stylesheets="@application.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane fx:id="base_pane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="base_pane" dividerPositions="0.5" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <items>
-            <ScrollPane fitToHeight="true" hbarPolicy="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0">
+            <ScrollPane hbarPolicy="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="120.0">
                <padding>
                   <Insets left="8.0" top="6.0" />
                </padding>
@@ -21,5 +21,28 @@
           <AnchorPane fx:id="right_pane" />
         </items>
       </SplitPane>
+      <VBox layoutY="1.0" maxWidth="-Infinity" prefHeight="24.0" prefWidth="205.0">
+         <children>
+            <MenuBar minWidth="-Infinity"  maxWidth="-Infinity">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
    </children>
 </fx:root>
