@@ -2,12 +2,12 @@ package application;
 
 public enum DragIconType {
 	cubic_curve,
-	red,
-	green,
-	blue,
-	black,
-	yellow,
-	purple,
+	LED,
+	open_switch,
+	closed_switch,
+	lamp,
+	button_switch,
+	resistor,
 	wire,
-	grey
+	cell
 }

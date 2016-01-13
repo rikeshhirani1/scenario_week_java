@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -29,7 +30,8 @@ public class DraggableNode extends AnchorPane {
 		@FXML private AnchorPane right_link_handle;
 		@FXML private Label title_bar;
 		@FXML private Label close_button;
-
+		@FXML private TextField text_field;
+		@FXML private Label unit_label;
 		private EventHandler <MouseEvent> mLinkHandleDragDetected;
 		private EventHandler <DragEvent> mLinkHandleDragDropped;
 		private EventHandler <DragEvent> mContextLinkDragOver;
@@ -126,36 +128,52 @@ public class DraggableNode extends AnchorPane {
 
 			switch (mType) {
 
-			case blue:
-				getStyleClass().add("icon-blue");
+			case closed_switch:
+				getStyleClass().add("icon_closed_switch");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
 			break;
 
-			case red:
-				getStyleClass().add("icon-red");
+			case LED:
+				getStyleClass().add("icon_LED");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
 			break;
 
-			case green:
-				getStyleClass().add("icon-green");
+			case open_switch:
+				getStyleClass().add("icon_open_switch");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
 			break;
 
-			case grey:
-				getStyleClass().add("icon-grey");
+			case cell:
+				getStyleClass().add("icon_cell");
+				text_field.setText("9");
+				unit_label.setText("Volt (V)");
 			break;
 
-			case purple:
-				getStyleClass().add("icon-purple");
+			case resistor:
+				getStyleClass().add("icon_resistor");
+				text_field.setText("8");
+				unit_label.setText("Ohm ");
 			break;
 
-			case yellow:
-				getStyleClass().add("icon-yellow");
+			case button_switch:
+				getStyleClass().add("icon_button_switch");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
 			break;
 
-			case black:
-				getStyleClass().add("icon-black");
+			case lamp:
+				getStyleClass().add("icon_lamp");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
 			break;
 
 			case wire:
 				getStyleClass().add("wire");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
 			break;
 
 			default:

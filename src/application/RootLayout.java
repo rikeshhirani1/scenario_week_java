@@ -46,6 +46,13 @@ public class RootLayout extends AnchorPane{
 		}
 	}
 
+
+
+	@FXML
+	private void handleButtonAction() {
+	     // Button was clicked, do something...
+        System.out.println("That was easy, wasn't it?");
+	 }
 	@FXML
 	private void initialize() {
 

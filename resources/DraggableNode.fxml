@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root fx:id="root_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="90.0" styleClass="dragicon" stylesheets="@application.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="root_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="132.0" prefWidth="137.0" styleClass="dragicon" stylesheets="@application.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,9 +29,15 @@
             </GridPane>
             <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="66.0">
                <children>
-                  <AnchorPane fx:id="left_link_handle" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" styleClass="left-link-handle" />
+                  <AnchorPane fx:id="left_link_handle" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="36.0" styleClass="left-link-handle" />
                   <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
-                  <AnchorPane fx:id="right_link_handle" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" styleClass="right-link-handle" />
+                  <AnchorPane fx:id="right_link_handle" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="68.0" styleClass="right-link-handle" />
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="163.0">
+               <children>
+                  <TextField fx:id="text_field" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="74.0" styleClass="text_field" />
+                  <Label fx:id="unit_label" prefHeight="24.0" prefWidth="44.0" text="" />
                </children>
             </HBox>
          </children>

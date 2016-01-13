@@ -30,7 +30,11 @@
 	rgba(255, 255, 255, 0.35);
 }
 */
-.icon-blue {
+.hide_text_field{
+	visibility: hidden;
+}
+
+.icon_closed_switch {
 	-fx-background-color: white;
 	-fx-background-image: url('closed_switch.png');
 	-fx-background-repeat: no-repeat;
@@ -39,7 +43,7 @@
   	-fx-border-color: grey;
 }
 
-.icon-red {
+.icon_LED {
 	-fx-background-color: white;
 	-fx-background-image: url('LED.png');
 	-fx-background-repeat: no-repeat;
@@ -48,7 +52,7 @@
   	-fx-border-color: grey;
 }
 
-.icon-green {
+.icon_open_switch {
 	-fx-background-color: white;
 	-fx-background-image: url('open_switch.png');
 	-fx-background-repeat: no-repeat;
@@ -57,7 +61,7 @@
   	-fx-border-color: grey;
 }
 
-.icon-black {
+.icon_lamp {
 	-fx-background-color: white;
 	-fx-background-image: url('lamp.png');
 	-fx-background-repeat: no-repeat;
@@ -66,7 +70,7 @@
   	-fx-border-color: grey;
 }
 
-.icon-grey {
+.icon_cell {
 	-fx-background-color: white;
 	-fx-background-image: url('cell.png');
 	-fx-background-repeat: no-repeat;
@@ -75,7 +79,7 @@
   	-fx-border-color: grey;
 }
 
-.icon-yellow {
+.icon_button_switch {
 	-fx-background-color: white;
 	-fx-background-image: url('button_switch.png');
 	-fx-background-repeat: no-repeat;
@@ -84,7 +88,7 @@
   	-fx-border-color: grey;
 }
 
-.icon-purple {
+.icon_resistor {
 	-fx-background-color: white;
 	-fx-background-image: url('resistor.png');
 	-fx-background-repeat: no-repeat;

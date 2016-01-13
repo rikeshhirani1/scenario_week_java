@@ -62,32 +62,32 @@ public class DragIcon extends AnchorPane{
 
 		switch (mType) {
 
-		case blue:
-			getStyleClass().add("icon-blue");
+		case closed_switch:
+			getStyleClass().add("icon_closed_switch");
 		break;
 
-		case red:
-			getStyleClass().add("icon-red");
+		case LED:
+			getStyleClass().add("icon_LED");
 		break;
 
-		case green:
-			getStyleClass().add("icon-green");
+		case open_switch:
+			getStyleClass().add("icon_open_switch");
 		break;
 
-		case grey:
-			getStyleClass().add("icon-grey");
+		case cell:
+			getStyleClass().add("icon_cell");
 		break;
 
-		case purple:
-			getStyleClass().add("icon-purple");
+		case resistor:
+			getStyleClass().add("icon_resistor");
 		break;
 
-		case yellow:
-			getStyleClass().add("icon-yellow");
+		case button_switch:
+			getStyleClass().add("icon_button_switch");
 		break;
 
-		case black:
-			getStyleClass().add("icon-black");
+		case lamp:
+			getStyleClass().add("icon_lamp");
 		break;
 
 		case wire:
