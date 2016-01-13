@@ -1,13 +1,25 @@
 package application;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -16,6 +28,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class RootLayout extends AnchorPane{
 
@@ -37,12 +51,11 @@ public class RootLayout extends AnchorPane{
 
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
-
 		try {
 			fxmlLoader.load();
 
 		} catch (IOException exception) {
-		    throw new RuntimeException(exception);
+			throw new RuntimeException(exception);
 		}
 	}
 
@@ -104,6 +117,60 @@ public class RootLayout extends AnchorPane{
 			}
 		});
 	}
+	@FXML
+	private void closeProject(ActionEvent event){
+		Platform.exit();
+		System.exit(0);
+	}
+
+	@FXML
+	private void savePro(ActionEvent event){
+		Scene current = this.getScene();
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(this.getScene().getWindow());
+		if(file != null){
+			SaveFile(current, file);
+		}
+	}
+	
+	private void SaveFile(Scene obj, File file){
+		try {
+			FileOutputStream fout = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(obj);
+			fout.close();
+		} catch (IOException ex) {
+
+		}
+
+	}
+	@FXML
+	private void openPro(ActionEvent event){
+		try{
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Resource File");
+			File file = fileChooser.showOpenDialog(this.getScene().getWindow());
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Scene result = (Scene) ois.readObject();
+			ois.close();
+			Stage window = (Stage) this.getScene().getWindow();
+			window.setScene(result);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	private void newPro(ActionEvent event){
+		System.out.print("new");
+	}
 
 	private void buildDragHandlers() {
 
@@ -141,8 +208,8 @@ public class RootLayout extends AnchorPane{
 				//pane, coodinates must be in the root pane's coordinate system to work
 				//properly.
 				mDragOverIcon.relocateToPoint(
-								new Point2D(event.getSceneX(), event.getSceneY())
-				);
+						new Point2D(event.getSceneX(), event.getSceneY())
+						);
 				event.consume();
 			}
 		};
@@ -184,16 +251,16 @@ public class RootLayout extends AnchorPane{
 				if (container != null) {
 					if (container.getValue("scene_coords") != null) {
 
-							DraggableNode node = new DraggableNode();
+						DraggableNode node = new DraggableNode();
 
-							node.setType(DragIconType.valueOf(container.getValue("type")));
-							right_pane.getChildren().add(node);
+						node.setType(DragIconType.valueOf(container.getValue("type")));
+						right_pane.getChildren().add(node);
 
-							Point2D cursorPoint = container.getValue("scene_coords");
+						Point2D cursorPoint = container.getValue("scene_coords");
 
-							node.relocateToPoint(
-									new Point2D(cursorPoint.getX() - 32, cursorPoint.getY() - 32)
-									);
+						node.relocateToPoint(
+								new Point2D(cursorPoint.getX() - 32, cursorPoint.getY() - 32)
+								);
 
 					}
 				}
@@ -206,7 +273,7 @@ public class RootLayout extends AnchorPane{
 					if (container.getValue("type") != null)
 						System.out.println ("Moved node " + container.getValue("type"));
 				}
-				*/
+				 */
 
 				//AddLink drag operation
 				container =
