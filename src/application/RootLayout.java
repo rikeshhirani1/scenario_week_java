@@ -28,6 +28,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -135,7 +136,9 @@ public class RootLayout extends AnchorPane{
 
 	@FXML
 	private void savePro(ActionEvent event){
-		Scene current = this.getScene();
+		System.out.print("ABout to save");
+		
+		/*
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -143,6 +146,7 @@ public class RootLayout extends AnchorPane{
 		if(file != null){
 			SaveFile(current, file);
 		}
+		*/
 	}
 
 	private void SaveFile(Scene obj, File file){
@@ -179,18 +183,18 @@ public class RootLayout extends AnchorPane{
 
 	@FXML
 	private void newPro(ActionEvent event){
+		Stage primaryStage = new Stage();
+		BorderPane root = new BorderPane();
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/RootLayout.fxml"));
-			fxmlLoader.setRoot(this);
-			fxmlLoader.setController(this);
-			fxmlLoader.load();
-			Parent root1 = (Parent) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root1));  
-			stage.show();
+			Scene scene = new Scene(root,800,480);
+			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("New Project");
+			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		root.setCenter(new RootLayout());
 	}
 
 	private void buildDragHandlers() {
@@ -271,21 +275,18 @@ public class RootLayout extends AnchorPane{
 
 				if (container != null) {
 					if (container.getValue("scene_coords") != null) {
-
 						DraggableNode node = new DraggableNode();
-
 						node.setType(DragIconType.valueOf(container.getValue("type")));
 						right_pane.getChildren().add(node);
-
 						Point2D cursorPoint = container.getValue("scene_coords");
-
+						System.out.println(cursorPoint.getX() + " " + cursorPoint.getY());
 						node.relocateToPoint(
 								new Point2D(cursorPoint.getX() - 32, cursorPoint.getY() - 32)
 								);
 
 					}
 				}
-				/*
+				
 				//Move node drag operation
 				container =
 						(DragContainer) event.getDragboard().getContent(DragContainer.DragNode);
@@ -294,7 +295,7 @@ public class RootLayout extends AnchorPane{
 					if (container.getValue("type") != null)
 						System.out.println ("Moved node " + container.getValue("type"));
 				}
-				 */
+				 
 
 				//AddLink drag operation
 				container =
