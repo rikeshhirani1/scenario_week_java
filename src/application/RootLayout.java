@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.ClipboardContent;
@@ -29,7 +30,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class RootLayout extends AnchorPane{
 
@@ -134,7 +137,7 @@ public class RootLayout extends AnchorPane{
 			SaveFile(current, file);
 		}
 	}
-	
+
 	private void SaveFile(Scene obj, File file){
 		try {
 			FileOutputStream fout = new FileOutputStream(file);
@@ -150,7 +153,7 @@ public class RootLayout extends AnchorPane{
 	private void openPro(ActionEvent event){
 		try{
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
+			fileChooser.setTitle("Open File");
 			File file = fileChooser.showOpenDialog(this.getScene().getWindow());
 			FileInputStream fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
@@ -169,7 +172,18 @@ public class RootLayout extends AnchorPane{
 
 	@FXML
 	private void newPro(ActionEvent event){
-		System.out.print("new");
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/RootLayout.fxml"));
+			fxmlLoader.setRoot(this);
+			fxmlLoader.setController(this);
+			fxmlLoader.load();
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root1));  
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void buildDragHandlers() {
