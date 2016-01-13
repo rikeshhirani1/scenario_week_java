@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 import com.sun.media.jfxmedia.logging.Logger;
 
@@ -35,7 +37,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class RootLayout extends AnchorPane{
+@SuppressWarnings("serial")
+public class RootLayout extends AnchorPane implements Serializable{
 
 	@FXML SplitPane base_pane;
 	@FXML AnchorPane right_pane;
@@ -67,9 +70,9 @@ public class RootLayout extends AnchorPane{
 
 	@FXML
 	private void handleButtonAction() {
-	     // Button was clicked, do something...
-        System.out.println("That was easy, wasn't it?");
-	 }
+		// Button was clicked, do something...
+		System.out.println("That was easy, wasn't it?");
+	}
 	@FXML
 	private void initialize() {
 
@@ -133,20 +136,36 @@ public class RootLayout extends AnchorPane{
 		Platform.exit();
 		System.exit(0);
 	}
-
+	ArrayList<Scene> s = new ArrayList<Scene>();
 	@FXML
+
+
 	private void savePro(ActionEvent event){
-		System.out.print("ABout to save");
-		
+		Scene ff = this.getScene();
+		s.add(ff);
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(this.getScene().getWindow());
+		try{
+			FileOutputStream fout = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(s);
+			fout.close();
+		}
+		catch(Exception e){
+
+		}
 		/*
+		System.out.print("ABout to save");
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(this.getScene().getWindow());
 		if(file != null){
-			SaveFile(current, file);
+			SaveFile(this.getScene(), file);
 		}
-		*/
+		 */
 	}
 
 	private void SaveFile(Scene obj, File file){
@@ -162,23 +181,29 @@ public class RootLayout extends AnchorPane{
 	}
 	@FXML
 	private void openPro(ActionEvent event){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		File file = fileChooser.showOpenDialog(this.getScene().getWindow());
+		BorderPane root = new BorderPane();
 		try{
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open File");
-			File file = fileChooser.showOpenDialog(this.getScene().getWindow());
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Scene result = (Scene) ois.readObject();
-			ois.close();
-			Stage window = (Stage) this.getScene().getWindow();
-			window.setScene(result);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+
+			FileInputStream fout = new FileInputStream(file);
+			ObjectInputStream oos = new ObjectInputStream(fout);
+			@SuppressWarnings("unchecked")
+			ArrayList<Scene> frt = (ArrayList<Scene>) oos.readObject();
+			fout.close();
+			Stage primaryStage = new Stage();
+			
+			Scene scene = frt.get(0);
+			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("New Project");
+			primaryStage.show();
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		root.setCenter(new RootLayout());
+
 	}
 
 	@FXML
@@ -186,7 +211,7 @@ public class RootLayout extends AnchorPane{
 		Stage primaryStage = new Stage();
 		BorderPane root = new BorderPane();
 		try {
-			Scene scene = new Scene(root,800,480);
+			Scene scene = this.getScene();
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("New Project");
@@ -286,7 +311,7 @@ public class RootLayout extends AnchorPane{
 
 					}
 				}
-				
+
 				//Move node drag operation
 				container =
 						(DragContainer) event.getDragboard().getContent(DragContainer.DragNode);
@@ -295,7 +320,7 @@ public class RootLayout extends AnchorPane{
 					if (container.getValue("type") != null)
 						System.out.println ("Moved node " + container.getValue("type"));
 				}
-				 
+
 
 				//AddLink drag operation
 				container =
