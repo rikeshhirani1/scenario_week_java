@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
@@ -22,6 +23,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+
 
 public class DraggableNode extends AnchorPane {
 
@@ -32,6 +34,7 @@ public class DraggableNode extends AnchorPane {
 		@FXML private Label close_button;
 		@FXML private TextField text_field;
 		@FXML private Label unit_label;
+		@FXML private Button btn;
 		private EventHandler <MouseEvent> mLinkHandleDragDetected;
 		private EventHandler <DragEvent> mLinkHandleDragDropped;
 		private EventHandler <DragEvent> mContextLinkDragOver;
@@ -46,7 +49,7 @@ public class DraggableNode extends AnchorPane {
 
 		private final DraggableNode self;
 
-		public NodeLink mDragLink = null;
+		private NodeLink mDragLink = null;
 		private AnchorPane right_pane = null;
 
 		private final List <String> mLinkIds = new ArrayList <String> ();
@@ -121,10 +124,14 @@ public class DraggableNode extends AnchorPane {
 
 		public void setType (DragIconType type) {
 
-			mType = type;
 
+			mType = type;
 			getStyleClass().clear();
 			getStyleClass().add("dragicon");
+			int[] ResistanceArray;
+			int[] VoltageArray;
+            ResistanceArray = new int [5];
+            VoltageArray = new int [5];
 
 			switch (mType) {
 
@@ -132,48 +139,69 @@ public class DraggableNode extends AnchorPane {
 				getStyleClass().add("icon_closed_switch");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
+				btn.setVisible(false);
 			break;
 
 			case LED:
 				getStyleClass().add("icon_LED");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
+				btn.setVisible(false);
 			break;
 
 			case open_switch:
 				getStyleClass().add("icon_open_switch");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
+				btn.setVisible(false);
 			break;
 
 			case cell:
 				getStyleClass().add("icon_cell");
-				text_field.setText("9");
-				unit_label.setText("Volt (V)");
+
+				btn.setOnAction((event) -> {
+				    System.out.println("Button Action");
+				    VoltageArray[1]=Integer.parseInt(text_field.getText());
+				    System.out.println("Updated Voltage is "+ VoltageArray[1]);
+				});
+                text_field.setText("5");
+				unit_label.setText("V");
 			break;
 
 			case resistor:
+
+				btn.setOnAction((event) -> {
+				    System.out.println("Button Action");
+				    ResistanceArray[1]=Integer.parseInt(text_field.getText());
+				    System.out.println("Updated Resistance is "+ ResistanceArray[1]);
+				});
+                text_field.setText("5");
+				unit_label.setText("Ω");
 				getStyleClass().add("icon_resistor");
-				text_field.setText("8");
-				unit_label.setText("Ohm ");
+
+
+
 			break;
 
 			case button_switch:
 				getStyleClass().add("icon_button_switch");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
+				btn.setVisible(false);
 			break;
 
 			case lamp:
 				getStyleClass().add("icon_lamp");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
+				btn.setVisible(false);
 			break;
 
 			case wire:
 				getStyleClass().add("wire");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
+				btn.setVisible(false);
 			break;
 
 			default:
