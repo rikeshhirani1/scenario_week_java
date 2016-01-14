@@ -46,7 +46,7 @@ public class DraggableNode extends AnchorPane {
 
 		private final DraggableNode self;
 
-		private NodeLink mDragLink = null;
+		public NodeLink mDragLink = null;
 		private AnchorPane right_pane = null;
 
 		private final List <String> mLinkIds = new ArrayList <String> ();

@@ -32,6 +32,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -136,58 +137,14 @@ public class RootLayout extends AnchorPane implements Serializable{
 		Platform.exit();
 		System.exit(0);
 	}
-	ArrayList<Scene> s = new ArrayList<Scene>();
 	@FXML
 
-
 	private void savePro(ActionEvent event){
-		Scene ff = this.getScene();
-		s.add(ff);
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(this.getScene().getWindow());
-		try{
-			FileOutputStream fout = new FileOutputStream(file);
-			ObjectOutputStream oos = new ObjectOutputStream(fout);
-			oos.writeObject(s);
-			fout.close();
-		}
-		catch(Exception e){
-
-		}
-		/*
-		System.out.print("ABout to save");
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(this.getScene().getWindow());
-		if(file != null){
-			SaveFile(this.getScene(), file);
-		}
-		 */
-	}
-
-	private void SaveFile(Scene obj, File file){
-		try {
-			FileOutputStream fout = new FileOutputStream(file);
-			ObjectOutputStream oos = new ObjectOutputStream(fout);
-			oos.writeObject(obj);
-			fout.close();
-		} catch (IOException ex) {
-
-		}
-	}
+		
 	
-	private void loadNode(double x, double y, String type){
-		DraggableNode node = new DraggableNode();
-		node.setType(DragIconType.valueOf(type));
-		right_pane.getChildren().add(node);
-		node.relocateToPoint(
-				new Point2D(x - 32, y - 32)
-				);
 	}
-	
+
+
 	private DraggableNode createNode(String name, double x, double y){
 		DraggableNode node = new DraggableNode();
 		node.setType(DragIconType.valueOf(name));
@@ -197,7 +154,7 @@ public class RootLayout extends AnchorPane implements Serializable{
 				);
 		return node;
 	}
-	
+
 	@FXML
 	private void openPro(ActionEvent event){
 		Stage primaryStage = new Stage();
@@ -214,32 +171,10 @@ public class RootLayout extends AnchorPane implements Serializable{
 		root.setCenter(new RootLayout());
 		DraggableNode node = createNode("closed_switch",309.0,253.0);
 		DraggableNode node2 = createNode("closed_switch",572.0,268.0);
-		NodeLink links = new NodeLink();
-		links.joinEnds(node,node2);
-		/*
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
-		File file = fileChooser.showOpenDialog(this.getScene().getWindow());
-		BorderPane root = new BorderPane();
-		try{
-
-			FileInputStream fout = new FileInputStream(file);
-			ObjectInputStream oos = new ObjectInputStream(fout);
-			@SuppressWarnings("unchecked")
-			ArrayList<Scene> frt = (ArrayList<Scene>) oos.readObject();
-			fout.close();
-			Stage primaryStage = new Stage();
-			
-			Scene scene = frt.get(0);
-			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("New Project");
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		root.setCenter(new RootLayout());
-		*/
+		NodeLink link = new NodeLink();
+		right_pane.getChildren().add(0,link);
+		link.bindEnds(node, node2);
+		System.out.print(link.node_link.getStartX());
 	}
 
 	@FXML
