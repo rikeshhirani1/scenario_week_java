@@ -48,7 +48,7 @@ public class DraggableNode extends AnchorPane {
 		private EventHandler <DragEvent> mContextDragOver;
 		private EventHandler <DragEvent> mContextDragDropped;
 
-		private DragIconType mType = null;
+		public DragIconType mType = null;
 
 		private Point2D mDragOffset = new Point2D (0.0, 0.0);
 

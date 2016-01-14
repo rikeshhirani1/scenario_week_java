@@ -9,15 +9,19 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.When;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.CubicCurve;
 
 public class NodeLink extends AnchorPane {
 
 	@FXML CubicCurve node_link;
+	private DraggableNode source;
+	private DraggableNode target;
 
 	private final DoubleProperty mControlOffsetX = new SimpleDoubleProperty();
 	private final DoubleProperty mControlOffsetY = new SimpleDoubleProperty();
@@ -48,7 +52,7 @@ public class NodeLink extends AnchorPane {
 
 	@FXML
 	private void initialize() {
-
+		
 		mControlOffsetX.set(100.0);
 		mControlOffsetY.set(50.0);
 
@@ -85,6 +89,12 @@ public class NodeLink extends AnchorPane {
 						node_link.endYProperty(), mControlOffsetY.multiply(mControlDirectionY2)
 						)
 				);
+		
+		this.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent mouseEvent) {
+		        System.out.println(source.mType + "to " + target.mType);
+		    }
+		});
 	}
 
 
@@ -100,8 +110,9 @@ public class NodeLink extends AnchorPane {
 		node_link.setEndY(endPoint.getY());
 	}
 
-
 	public void bindEnds (DraggableNode source, DraggableNode target) {
+		this.source = source;
+		this.target = target;
 		node_link.startXProperty().bind(
 				Bindings.add(source.layoutXProperty(), (source.getWidth() / 2.0)));
 
