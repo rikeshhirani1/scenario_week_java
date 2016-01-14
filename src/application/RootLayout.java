@@ -177,10 +177,46 @@ public class RootLayout extends AnchorPane implements Serializable{
 		} catch (IOException ex) {
 
 		}
-
 	}
+	
+	private void loadNode(double x, double y, String type){
+		DraggableNode node = new DraggableNode();
+		node.setType(DragIconType.valueOf(type));
+		right_pane.getChildren().add(node);
+		node.relocateToPoint(
+				new Point2D(x - 32, y - 32)
+				);
+	}
+	
+	private DraggableNode createNode(String name, double x, double y){
+		DraggableNode node = new DraggableNode();
+		node.setType(DragIconType.valueOf(name));
+		right_pane.getChildren().add(node);
+		node.relocateToPoint(
+				new Point2D(x - 32, y - 32)
+				);
+		return node;
+	}
+	
 	@FXML
 	private void openPro(ActionEvent event){
+		Stage primaryStage = new Stage();
+		BorderPane root = new BorderPane();
+		try {
+			Scene scene = this.getScene();
+			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("New Project");
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		root.setCenter(new RootLayout());
+		DraggableNode node = createNode("closed_switch",309.0,253.0);
+		DraggableNode node2 = createNode("closed_switch",572.0,268.0);
+		NodeLink links = new NodeLink();
+		links.joinEnds(node,node2);
+		/*
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		File file = fileChooser.showOpenDialog(this.getScene().getWindow());
@@ -203,7 +239,7 @@ public class RootLayout extends AnchorPane implements Serializable{
 			e.printStackTrace();
 		}
 		root.setCenter(new RootLayout());
-
+		*/
 	}
 
 	@FXML
@@ -302,6 +338,7 @@ public class RootLayout extends AnchorPane implements Serializable{
 					if (container.getValue("scene_coords") != null) {
 						DraggableNode node = new DraggableNode();
 						node.setType(DragIconType.valueOf(container.getValue("type")));
+						System.out.print(DragIconType.valueOf(container.getValue("type")));
 						right_pane.getChildren().add(node);
 						Point2D cursorPoint = container.getValue("scene_coords");
 						System.out.println(cursorPoint.getX() + " " + cursorPoint.getY());

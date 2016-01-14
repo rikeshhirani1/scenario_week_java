@@ -89,18 +89,26 @@ public class NodeLink extends AnchorPane {
 
 
 	public void setStart(Point2D startPoint) {
-
 		node_link.setStartX(startPoint.getX());
 		node_link.setStartY(startPoint.getY());
+		System.out.print("S" + startPoint.getX() + " " + startPoint.getY());
 	}
 
 	public void setEnd(Point2D endPoint) {
-
 		node_link.setEndX(endPoint.getX());
 		node_link.setEndY(endPoint.getY());
+		System.out.print("E" + endPoint.getX() + " " + endPoint.getY());
 	}
 
-
+	public void joinEnds(DraggableNode source, DraggableNode target) {
+		initialize();
+		node_link.setStartX(175.5);
+		node_link.setStartY(204.0);
+		node_link.setEndX(486.0);
+		node_link.setEndY(198.0);
+		bindEnds(source,target);
+	}
+	
 	public void bindEnds (DraggableNode source, DraggableNode target) {
 		node_link.startXProperty().bind(
 				Bindings.add(source.layoutXProperty(), (source.getWidth() / 2.0)));
