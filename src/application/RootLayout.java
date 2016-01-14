@@ -52,6 +52,8 @@ public class RootLayout extends AnchorPane{
 	@FXML AnchorPane right_pane;
 	@FXML VBox left_pane;
 	@FXML private TextField text_field_add;
+	@FXML TextField vMeter;
+	@FXML TextField aMeter;
 
 	private DragIcon mDragOverIcon = null;
 	public int length = 9;
@@ -76,7 +78,12 @@ public class RootLayout extends AnchorPane{
 
 
 	}
-
+	
+	public  void setMeters(double a,double b){
+		System.out.println("c");
+		aMeter.setText(String.valueOf(a));
+		vMeter.setText(String.valueOf(b));
+	}
 
 	@FXML
 	private void handleSubmitButtonAction(ActionEvent event) {
@@ -301,8 +308,10 @@ public class RootLayout extends AnchorPane{
 	}
 
 	public void startSim(){
+		setMeters(0,0);
 		System.out.print("Sim anout to start");
 	}
+	
 	private void buildDragHandlers() {
 
 		//drag over transition to move widget form left pane to right pane

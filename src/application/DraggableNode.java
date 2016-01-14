@@ -54,6 +54,9 @@ public class DraggableNode extends AnchorPane {
 
 		private final DraggableNode self;
 
+		private double output;
+		private double input;
+		
 		private NodeLink mDragLink = null;
 		private AnchorPane right_pane = null;
 
@@ -80,7 +83,16 @@ public class DraggableNode extends AnchorPane {
 			setId(UUID.randomUUID().toString());
 
 		}
-
+		public double vOutput;
+		public double aOutput;
+		public double vInput;
+		public double aInput;
+		
+		public void calculateVoltages(){
+			//do the calculation 
+			
+		}
+		
 		@FXML
 		private void initialize() {
 
