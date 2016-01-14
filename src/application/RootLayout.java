@@ -11,8 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
 
@@ -29,6 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
@@ -37,25 +36,24 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.CubicCurve;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-@SuppressWarnings("serial")
-public class RootLayout extends AnchorPane implements Serializable{
-
+public class RootLayout extends AnchorPane{
+	public static String input_text;
 	@FXML SplitPane base_pane;
 	@FXML AnchorPane right_pane;
 	@FXML VBox left_pane;
-	static ArrayList<String> list = new ArrayList<String>();
-	private DragIcon mDragOverIcon = null;
+	@FXML private TextField text_field_add;
 
+	private DragIcon mDragOverIcon = null;
+	public int length = 9;
 	private EventHandler<DragEvent> mIconDragOverRoot = null;
 	private EventHandler<DragEvent> mIconDragDropped = null;
 	private EventHandler<DragEvent> mIconDragOverRightPane = null;
-
+	static ArrayList<String> list = new ArrayList<String>();
 	public RootLayout() {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(
@@ -70,9 +68,33 @@ public class RootLayout extends AnchorPane implements Serializable{
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
+
+
 	}
 
 
+	@FXML
+	private void handleSubmitButtonAction(ActionEvent event) {
+		input_text = text_field_add.getText();
+		System.out.print(input_text);
+		mDragOverIcon = new DragIcon();
+
+		mDragOverIcon.setVisible(false);
+		mDragOverIcon.setOpacity(0.65);
+		getChildren().add(mDragOverIcon);
+
+
+		DragIcon icn = new DragIcon();
+
+		addDragDetection(icn);
+
+		icn.setType(DragIconType.values()[length]);
+
+		left_pane.getChildren().add(icn);
+
+		buildDragHandlers();
+		length++;
+	}
 
 	@FXML
 	private void handleButtonAction() {
@@ -139,7 +161,6 @@ public class RootLayout extends AnchorPane implements Serializable{
 	}
 
 	@FXML
-
 	private void savePro(ActionEvent event){
 		FileChooser fileChooser = new FileChooser();
 
@@ -152,6 +173,7 @@ public class RootLayout extends AnchorPane implements Serializable{
 		useByfferedFileWriter(file);
 
 	}
+
 	public static void useByfferedFileWriter(File filePath) {
 
 		File file = filePath;
@@ -254,11 +276,17 @@ public class RootLayout extends AnchorPane implements Serializable{
 		root.setCenter(new RootLayout());
 	}
 
+
 	private void buildDragHandlers() {
+
+		//drag over transition to move widget form left pane to right pane
 		mIconDragOverRoot = new EventHandler <DragEvent>() {
+
 			@Override
 			public void handle(DragEvent event) {
+
 				Point2D p = right_pane.sceneToLocal(event.getSceneX(), event.getSceneY());
+
 				//turn on transfer mode and track in the right-pane's context
 				//if (and only if) the mouse cursor falls within the right pane's bounds.
 				if (!right_pane.boundsInLocalProperty().get().contains(p)) {
@@ -345,6 +373,7 @@ public class RootLayout extends AnchorPane implements Serializable{
 					}
 				}
 
+				/*
 				//Move node drag operation
 				container =
 						(DragContainer) event.getDragboard().getContent(DragContainer.DragNode);
@@ -353,7 +382,7 @@ public class RootLayout extends AnchorPane implements Serializable{
 					if (container.getValue("type") != null)
 						System.out.println ("Moved node " + container.getValue("type"));
 				}
-
+				 */
 
 				//AddLink drag operation
 				container =
