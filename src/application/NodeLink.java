@@ -13,12 +13,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.CubicCurve;
 
 public class NodeLink extends AnchorPane {
-
+	@FXML RootLayout controller;
 	@FXML CubicCurve node_link;
 	private DraggableNode source;
 	private DraggableNode target;
@@ -52,7 +53,7 @@ public class NodeLink extends AnchorPane {
 
 	@FXML
 	private void initialize() {
-		
+
 		mControlOffsetX.set(100.0);
 		mControlOffsetY.set(50.0);
 
@@ -89,27 +90,25 @@ public class NodeLink extends AnchorPane {
 						node_link.endYProperty(), mControlOffsetY.multiply(mControlDirectionY2)
 						)
 				);
-		
 		this.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent mouseEvent) {
 		        double v = 0;
 		        double a = 0;
-		        source.calculateVoltages();
+		        //source.calculateVoltages();
 		        //v = source.vOutput;
 		        //a = source.aOutput;
 		        //target.vInput = v;
 		        //target.aInput = a;
-		        System.out.print("SEE");
-		        //Problem in setting texts;
-		        //controller.setMeters(v, a);
+		        RootLayout.setMeters(v, a);
 		    }
 		});
 	}
 	
-	
+
 	public void setStart(Point2D startPoint) {
 
 		node_link.setStartX(startPoint.getX());
+		
 		node_link.setStartY(startPoint.getY());
 	}
 
@@ -117,7 +116,9 @@ public class NodeLink extends AnchorPane {
 
 		node_link.setEndX(endPoint.getX());
 		node_link.setEndY(endPoint.getY());
+		
 	}
+
 
 	public void bindEnds (DraggableNode source, DraggableNode target) {
 		this.source = source;
@@ -136,6 +137,37 @@ public class NodeLink extends AnchorPane {
 
 		source.registerLink (getId());
 		target.registerLink (getId());
+		//System.out.println("start from:"+source.getType());
+		//System.out.println("start from:"+source.getId());
+		//starting node
+		if(CircuitData.circuit.isEmpty()){
+			CircuitData.circuit.add(source);
+			
+			CircuitData.circuit.add(target);
+			CircuitData.addPair(source,target);
+			CircuitData.printCircuit();
+		}
+		//non starting node
+		else {
+				if((CircuitData.isVoltmeter(source))||(CircuitData.isVoltmeter(target))){
+					System.out.println("connecting to a voltmeter");
+					//whether voltmeter is placed porperly
+					//voltmeterWork()
+				}
+				else {
+					if(!target.equals(CircuitData.circuit.get(0)))
+					CircuitData.circuit.add(target);
+					
+					CircuitData.addPair(source,target);
+					CircuitData.printCircuit();					
+				}
+
+
+		}
+		
+
+		
+		
 	}
 
 }

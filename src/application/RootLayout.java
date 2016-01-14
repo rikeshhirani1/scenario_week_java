@@ -54,6 +54,8 @@ public class RootLayout extends AnchorPane{
 	@FXML private TextField text_field_add;
 	@FXML TextField vMeter;
 	@FXML TextField aMeter;
+	static TextField vMeterS;
+	static TextField aMeterS;
 
 	private DragIcon mDragOverIcon = null;
 	public int length = 9;
@@ -79,10 +81,10 @@ public class RootLayout extends AnchorPane{
 
 	}
 	
-	public  void setMeters(double a,double b){
+	public static void setMeters(double a,double b){
 		System.out.println("c");
-		aMeter.setText(String.valueOf(a));
-		vMeter.setText(String.valueOf(b));
+		aMeterS.setText(String.valueOf(a));
+		vMeterS.setText(String.valueOf(b));
 	}
 
 	@FXML
@@ -115,7 +117,8 @@ public class RootLayout extends AnchorPane{
 	}
 	@FXML
 	private void initialize() {
-
+		vMeterS = vMeter;
+		aMeterS = aMeter;
 		//Add one icon that will be used for the drag-drop process
 		//This is added as a child to the root anchorpane so it can be visible
 		//on both sides of the split pane.
@@ -274,7 +277,6 @@ public class RootLayout extends AnchorPane{
 
 	@FXML
 	private void newPro(ActionEvent event){
-		
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Create New Project");
 		alert.setHeaderText("Save project, otherwise progress will be lost");
@@ -296,7 +298,7 @@ public class RootLayout extends AnchorPane{
 		Stage primaryStage = new Stage();
 		BorderPane root = new BorderPane();
 		try {
-			Scene scene = this.getScene();
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("New Project");
