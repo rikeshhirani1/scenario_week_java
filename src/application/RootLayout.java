@@ -300,7 +300,9 @@ public class RootLayout extends AnchorPane{
 		root.setCenter(new RootLayout());
 	}
 
-
+	public void startSim(){
+		System.out.print("Sim anout to start");
+	}
 	private void buildDragHandlers() {
 
 		//drag over transition to move widget form left pane to right pane

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.net.*?>
 <?import java.lang.*?>
@@ -22,6 +23,11 @@
                <children>
                   <TextField fx:id="text_field_add" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="103.0" />
                   <Button fx:id="add_button" layoutX="130.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Add" />
+                  <TextField fx:id="aMeter" layoutX="93.0" layoutY="113.0" prefHeight="25.0" prefWidth="70.0" />
+                  <TextField fx:id="vMeter" layoutX="93.0" layoutY="81.0" prefHeight="25.0" prefWidth="70.0" />
+                  <Text layoutX="28.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voltmeter" />
+                  <Text layoutX="28.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ammeter" />
+                  <Button fx:id="simStart" layoutX="61.0" layoutY="48.0" mnemonicParsing="false" onAction="#startSim" text="Start Sim" />
                </children></AnchorPane>
         </items>
       </SplitPane>
