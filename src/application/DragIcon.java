@@ -5,13 +5,17 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.CubicCurve;
 
 public class DragIcon extends AnchorPane{
 
-	@FXML AnchorPane root_pane;
+	@FXML private AnchorPane root_pane; //Addition of private
+	@FXML private Label component_label;
+	@FXML private Label close_button;
 
 	private DragIconType mType = null;
 
@@ -51,11 +55,11 @@ public class DragIcon extends AnchorPane{
 
 	public void setType (DragIconType type) {
 
+
 		mType = type;
 
 		getStyleClass().clear();
-		getStyleClass().add("dragicon");
-
+		//getStyleClass().add("dragicon");
 		//added because the cubic curve will persist into other icons
 		if (this.getChildren().size() > 0)
 			getChildren().clear();
@@ -94,6 +98,17 @@ public class DragIcon extends AnchorPane{
 			getStyleClass().add("wire");
 		break;
 
+		case new_item1:
+			getStyleClass().add("new_items");
+		break;
+
+		case new_item2:
+			getStyleClass().add("new_items");
+		break;
+
+		case new_item3:
+			getStyleClass().add("new_items");
+		break;
 
 		default:
 		break;

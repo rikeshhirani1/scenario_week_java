@@ -9,5 +9,8 @@ public enum DragIconType {
 	button_switch,
 	resistor,
 	wire,
-	cell
+	cell,
+	new_item1,
+	new_item2,
+	new_item3
 }

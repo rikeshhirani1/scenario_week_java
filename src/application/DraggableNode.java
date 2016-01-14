@@ -1,5 +1,6 @@
 package application;
 
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 
-
 public class DraggableNode extends AnchorPane {
 
 		@FXML private AnchorPane root_pane;
@@ -33,8 +33,13 @@ public class DraggableNode extends AnchorPane {
 		@FXML private Label title_bar;
 		@FXML private Label close_button;
 		@FXML private TextField text_field;
+		@FXML private TextField new_item_text;
 		@FXML private Label unit_label;
 		@FXML private Button btn;
+
+		public int[] ResistanceArray = new int [5];
+		public int[] VoltageArray = new int [5];
+
 		private EventHandler <MouseEvent> mLinkHandleDragDetected;
 		private EventHandler <DragEvent> mLinkHandleDragDropped;
 		private EventHandler <DragEvent> mContextLinkDragOver;
@@ -124,14 +129,9 @@ public class DraggableNode extends AnchorPane {
 
 		public void setType (DragIconType type) {
 
-
 			mType = type;
 			getStyleClass().clear();
 			getStyleClass().add("dragicon");
-			int[] ResistanceArray;
-			int[] VoltageArray;
-            ResistanceArray = new int [5];
-            VoltageArray = new int [5];
 
 			switch (mType) {
 
@@ -176,7 +176,7 @@ public class DraggableNode extends AnchorPane {
 				    System.out.println("Updated Resistance is "+ ResistanceArray[1]);
 				});
                 text_field.setText("5");
-				unit_label.setText("Ω");
+				unit_label.setText("ohms");
 				getStyleClass().add("icon_resistor");
 
 
