@@ -1,14 +1,19 @@
 package application;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import com.sun.media.jfxmedia.logging.Logger;
@@ -44,7 +49,7 @@ public class RootLayout extends AnchorPane implements Serializable{
 	@FXML SplitPane base_pane;
 	@FXML AnchorPane right_pane;
 	@FXML VBox left_pane;
-
+	static ArrayList<String> list = new ArrayList<String>();
 	private DragIcon mDragOverIcon = null;
 
 	private EventHandler<DragEvent> mIconDragOverRoot = null;
@@ -132,18 +137,55 @@ public class RootLayout extends AnchorPane implements Serializable{
 			}
 		});
 	}
-	@FXML
-	private void closeProject(ActionEvent event){
-		Platform.exit();
-		System.exit(0);
-	}
+
 	@FXML
 
 	private void savePro(ActionEvent event){
-		
-	
-	}
+		FileChooser fileChooser = new FileChooser();
 
+		//Set extension filter
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+
+		//Show save file dialog
+		File file = fileChooser.showSaveDialog(this.getScene().getWindow());
+		useByfferedFileWriter(file);
+
+	}
+	public static void useByfferedFileWriter(File filePath) {
+
+		File file = filePath;
+		Writer fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+
+		try {
+
+			fileWriter = new FileWriter(file);
+			bufferedWriter = new BufferedWriter(fileWriter);
+
+			// Write the lines one by one
+			for (int i = 0; i < list.size(); i++){
+				bufferedWriter.write(list.get(i));
+				bufferedWriter.newLine();
+			}
+
+
+		} catch (IOException e) {
+			System.err.println("Error writing the file : ");
+			e.printStackTrace();
+		} finally {
+
+			if (bufferedWriter != null && fileWriter != null) {
+				try {
+					bufferedWriter.close();
+					fileWriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
 
 	private DraggableNode createNode(String name, double x, double y){
 		DraggableNode node = new DraggableNode();
@@ -169,12 +211,31 @@ public class RootLayout extends AnchorPane implements Serializable{
 			e.printStackTrace();
 		}
 		root.setCenter(new RootLayout());
-		DraggableNode node = createNode("closed_switch",309.0,253.0);
-		DraggableNode node2 = createNode("closed_switch",572.0,268.0);
-		NodeLink link = new NodeLink();
-		right_pane.getChildren().add(0,link);
-		link.bindEnds(node, node2);
-		System.out.print(link.node_link.getStartX());
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = ",";
+		try {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Resource File");
+			File file = fileChooser.showOpenDialog(primaryStage);
+			br = new BufferedReader(new FileReader(file));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] country = line.split(cvsSplitBy);
+				String type = country[0];
+				String x = country[1];
+				String y = country[2];
+				System.out.println(type + " " + x + " " + y);
+				DraggableNode node = createNode(type,Double.parseDouble(x),Double.parseDouble(y));
+
+			}
+		}
+		catch(Exception e){
+
+		}
+		//DraggableNode node = createNode("LED",296.0,214.0);
+		//DraggableNode node2 = createNode("open_switch",575.0,232.0);
 	}
 
 	@FXML
@@ -194,15 +255,10 @@ public class RootLayout extends AnchorPane implements Serializable{
 	}
 
 	private void buildDragHandlers() {
-
-		//drag over transition to move widget form left pane to right pane
 		mIconDragOverRoot = new EventHandler <DragEvent>() {
-
 			@Override
 			public void handle(DragEvent event) {
-
 				Point2D p = right_pane.sceneToLocal(event.getSceneX(), event.getSceneY());
-
 				//turn on transfer mode and track in the right-pane's context
 				//if (and only if) the mouse cursor falls within the right pane's bounds.
 				if (!right_pane.boundsInLocalProperty().get().contains(p)) {
@@ -273,13 +329,18 @@ public class RootLayout extends AnchorPane implements Serializable{
 					if (container.getValue("scene_coords") != null) {
 						DraggableNode node = new DraggableNode();
 						node.setType(DragIconType.valueOf(container.getValue("type")));
-						System.out.print(DragIconType.valueOf(container.getValue("type")));
+						String type = DragIconType.valueOf(container.getValue("type")).toString();
 						right_pane.getChildren().add(node);
 						Point2D cursorPoint = container.getValue("scene_coords");
-						System.out.println(cursorPoint.getX() + " " + cursorPoint.getY());
 						node.relocateToPoint(
 								new Point2D(cursorPoint.getX() - 32, cursorPoint.getY() - 32)
 								);
+						double a,b,c,d;
+						a = cursorPoint.getX() - 32;
+						b = cursorPoint.getY() - 32;
+						String data = type+ "," + a +"," +b;
+						list.add(data);
+						System.out.print(list.size());
 
 					}
 				}

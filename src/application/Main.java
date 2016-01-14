@@ -22,7 +22,7 @@ public class Main extends Application {
 		}
 		root.setCenter(new RootLayout());
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

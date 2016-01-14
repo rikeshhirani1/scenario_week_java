@@ -91,11 +91,13 @@ public class NodeLink extends AnchorPane {
 	public void setStart(Point2D startPoint) {
 		node_link.setStartX(startPoint.getX());
 		node_link.setStartY(startPoint.getY());
+		System.out.print("S" + startPoint.getX() + " " + startPoint.getY());
 	}
 
 	public void setEnd(Point2D endPoint) {
 		node_link.setEndX(endPoint.getX());
 		node_link.setEndY(endPoint.getY());
+		System.out.print("E" + endPoint.getX() + " " + endPoint.getY());
 	}
 
 	public void joinEnds(DraggableNode source, DraggableNode target, CubicCurve c) {
@@ -120,5 +122,4 @@ public class NodeLink extends AnchorPane {
 		source.registerLink (getId());
 		target.registerLink (getId());
 	}
-
 }
