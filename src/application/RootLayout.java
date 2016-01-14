@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.sun.media.jfxmedia.logging.Logger;
 
@@ -26,6 +27,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
@@ -262,6 +267,25 @@ public class RootLayout extends AnchorPane{
 
 	@FXML
 	private void newPro(ActionEvent event){
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Create New Project");
+		alert.setHeaderText("Save project, otherwise progress will be lost");
+		alert.setContentText("Choose your option.");
+
+		ButtonType buttonTypeOne = new ButtonType("Save");
+		ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == buttonTypeOne){
+		    savePro(event);
+		} else {
+			Stage s = (Stage) this.getScene().getWindow();
+			s.close();
+		    // ... user chose CANCEL or closed the dialog
+		}
 		Stage primaryStage = new Stage();
 		BorderPane root = new BorderPane();
 		try {
