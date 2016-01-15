@@ -56,26 +56,25 @@ public class NodeLinkTest {
 		//System.out.println(nl.node_link.getStartX());
 		assertThat(nl.node_link.getStartX(), is(2.0));
 		assertThat(nl.node_link.getStartY(), is(4.0));
-
+		
 	}
 
 	@Test
 	public void testSetEnd() {
-
+		
 		NodeLink nl = new NodeLink();
 		nl.setEnd(new Point2D(2, 4));
 
 		assertThat(nl.node_link.getEndX(), is(2.0));
 		assertThat(nl.node_link.getEndY(), is(4.0));
 	}
-	/*
 	@Test
 	public void testInitialize() {
 		NodeLink nl = new NodeLink();
 		nl.setStart(new Point2D(2, 4));
 		//nl.node_link.getStartX();
 		//System.out.println(nl.node_link.getStartX());
-
+		
 	}
 	@Test
 	public void testBindEnds() {
@@ -83,8 +82,8 @@ public class NodeLinkTest {
 //		DraggableNode dn2 = new DraggableNode();
 //		NodeLink nodelink = new NodeLink();
 //		nodelink.bindEnds(dn1,dn2);
-//
+//		
 		//nodelink.
-	}*/
+	}
 
 }

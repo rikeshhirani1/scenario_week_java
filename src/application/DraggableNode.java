@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +25,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-
 public class DraggableNode extends AnchorPane {
 
 		@FXML private AnchorPane root_pane;
@@ -33,13 +33,8 @@ public class DraggableNode extends AnchorPane {
 		@FXML private Label title_bar;
 		@FXML private Label close_button;
 		@FXML private TextField text_field;
-		@FXML private TextField new_item_text;
 		@FXML private Label unit_label;
 		@FXML private Button btn;
-
-		public int[] ResistanceArray = new int [5];
-		public int[] VoltageArray = new int [5];
-
 		private EventHandler <MouseEvent> mLinkHandleDragDetected;
 		private EventHandler <DragEvent> mLinkHandleDragDropped;
 		private EventHandler <DragEvent> mContextLinkDragOver;
@@ -48,24 +43,22 @@ public class DraggableNode extends AnchorPane {
 		private EventHandler <DragEvent> mContextDragOver;
 		private EventHandler <DragEvent> mContextDragDropped;
 
-		public DragIconType mType = null;
+		private DragIconType mType = null;
 
 		private Point2D mDragOffset = new Point2D (0.0, 0.0);
 
 		private final DraggableNode self;
 
-		private double output;
-		private double input;
-		
 		private NodeLink mDragLink = null;
 		private AnchorPane right_pane = null;
-
+//key
 		private final List <String> mLinkIds = new ArrayList <String> ();
-
+		public double resistance =0;
 		public DraggableNode() {
 
 			FXMLLoader fxmlLoader = new FXMLLoader(
 					getClass().getResource("/DraggableNode.fxml")
+					//System.out.println("load DraggableNode");
 					);
 
 			fxmlLoader.setRoot(this);
@@ -75,6 +68,7 @@ public class DraggableNode extends AnchorPane {
 
 			try {
 				fxmlLoader.load();
+				System.out.println("load DraggableNode");
 
 			} catch (IOException exception) {
 			    throw new RuntimeException(exception);
@@ -83,16 +77,9 @@ public class DraggableNode extends AnchorPane {
 			setId(UUID.randomUUID().toString());
 
 		}
-		public double vOutput;
-		public double aOutput;
-		public double vInput;
-		public double aInput;
-		
-		public void calculateVoltages(){
-			//do the calculation 
+		public void setResistance(int r){
 			
 		}
-		
 		@FXML
 		private void initialize() {
 
@@ -142,6 +129,7 @@ public class DraggableNode extends AnchorPane {
 		public void setType (DragIconType type) {
 
 			mType = type;
+
 			getStyleClass().clear();
 			getStyleClass().add("dragicon");
 
@@ -151,44 +139,42 @@ public class DraggableNode extends AnchorPane {
 				getStyleClass().add("icon_closed_switch");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
-				btn.setVisible(false);
 			break;
 
 			case LED:
 				getStyleClass().add("icon_LED");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
-				btn.setVisible(false);
 			break;
 
 			case open_switch:
 				getStyleClass().add("icon_open_switch");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
-				btn.setVisible(false);
 			break;
 
 			case cell:
 				getStyleClass().add("icon_cell");
-
-				btn.setOnAction((event) -> {
-				    System.out.println("Button Action");
-				    VoltageArray[1]=Integer.parseInt(text_field.getText());
-				    System.out.println("Updated Voltage is "+ VoltageArray[1]);
-				});
-                text_field.setText("5");
-				unit_label.setText("V");
+				text_field.setText("36");
+				unit_label.setText("Volt (V)");
 			break;
 
 			case resistor:
-
+				this.resistance = 3;
 				btn.setOnAction((event) -> {
-				    System.out.println("Button Action");
-				    ResistanceArray[1]=Integer.parseInt(text_field.getText());
-				    System.out.println("Updated Resistance is "+ ResistanceArray[1]);
+				   // System.out.println("Button Action");
+					int r = Integer.parseInt(text_field.getText());
+				   // CircuitData.Resistance.add(r);
+				    this.resistance = r;
+				    if(CircuitData.formCircuit())
+				    {
+				    	CircuitData.AmmeterWork();
+				    	CircuitData.volMeterWork();
+				    }
+				   //System.out.println("Updated Resistance is "+  CircuitData.Resistance.get(CircuitData.Resistance.size()-1));
 				});
-                text_field.setText("5");
-				unit_label.setText("ohms");
+                text_field.setText("3");
+				unit_label.setText("¦¸");
 				getStyleClass().add("icon_resistor");
 
 
@@ -199,23 +185,32 @@ public class DraggableNode extends AnchorPane {
 				getStyleClass().add("icon_button_switch");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
-				btn.setVisible(false);
 			break;
 
 			case lamp:
 				getStyleClass().add("icon_lamp");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
-				btn.setVisible(false);
 			break;
 
 			case wire:
 				getStyleClass().add("wire");
 				text_field.setVisible(false);
 				unit_label.setVisible(false);
-				btn.setVisible(false);
 			break;
 
+			case voltage:
+				getStyleClass().add("voltage");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
+			break;
+			
+
+			case leftpoint:
+				getStyleClass().add("leftpoint");
+				text_field.setVisible(false);
+				unit_label.setVisible(false);
+			break;
 			default:
 			break;
 			}

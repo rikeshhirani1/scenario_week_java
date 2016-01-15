@@ -10,7 +10,6 @@ public enum DragIconType {
 	resistor,
 	wire,
 	cell,
-	new_item1,
-	new_item2,
-	new_item3
+	voltage,
+	leftpoint
 }

@@ -13,7 +13,10 @@ public  class CircuitData {
 	public static ArrayList<DraggableNode> circuit = new ArrayList<DraggableNode>();  
 	//list store every pair of connected conponent in loop
 	public static List <Pair<DraggableNode, DraggableNode> > connectedConponent = new ArrayList <Pair<DraggableNode, DraggableNode> > ();
-
+	public static ArrayList<Integer> Resistance = new ArrayList<Integer>();  
+	
+	public static int indexStart;
+	public static int indexEnd;
 	public static void printCircuit(){
 		System.out.print("--------");
 		for(int i=0;i<circuit.size();i++)
@@ -78,10 +81,68 @@ public  class CircuitData {
 		}
 		return number;
 	}
+	static double v;
+	static double a;
 	public static void AmmeterWork(){
-		System.out.println("current is "+CircuitData.defaultVoltage/(CircuitData.defaultResistance*numberOfResistance()));
+		a = CircuitData.defaultVoltage/getTotalResistance();
+		System.out.println("current is "+CircuitData.defaultVoltage/getTotalResistance());
 	}
 	public static boolean isVoltmeter(DraggableNode a){
 		return a.getType().equals(DragIconType.button_switch);
+	}
+	
+	public static boolean isPoint(DraggableNode a){
+		return a.getType().equals(DragIconType.leftpoint);
+	}
+	
+	public static double getTotalResistance(){
+		double sum = 0 ;
+		for (DraggableNode draggableNode : circuit) {
+			sum = sum + draggableNode.resistance;
+		
+		}
+		return sum;
+	}
+	public static double getResistanceInVoltmeter(){
+		double sum = 0 ;
+		for (int i = 0; i < circuit.size(); i++) {
+			if(i>getStartpoint())
+				if(i<getEndpoint())
+					sum = sum + circuit.get(i).resistance;
+		}
+		return sum;
+	}
+	public static int getStartpoint(){
+		for (DraggableNode draggableNode : circuit) {
+			if(draggableNode.getType().equals(DragIconType.leftpoint)){
+				System.out.println("startpoint is "+circuit.indexOf(draggableNode));
+				return circuit.indexOf(draggableNode);
+			}
+				
+		
+		}
+		return -1;
+	}
+	public static int getEndpoint(){
+		for (DraggableNode draggableNode : circuit) {
+			if(draggableNode.getType().equals(DragIconType.leftpoint))
+				if(circuit.indexOf(draggableNode)!=getStartpoint()){
+					System.out.println("endpoint is "+circuit.indexOf(draggableNode));
+					return circuit.indexOf(draggableNode);
+				}
+				
+		
+		}
+		return -1;
+	}
+	
+	public static void volMeterWork(){
+		if((getEndpoint()==-1)||(getStartpoint()==-1))
+		{}
+		else {
+			v = CircuitData.defaultVoltage*getResistanceInVoltmeter()/getTotalResistance();
+			RootLayout.setMeters(v,a);
+			System.out.println("voltage = "+CircuitData.defaultVoltage*getResistanceInVoltmeter()/getTotalResistance());
+		}
 	}
 }

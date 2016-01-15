@@ -94,6 +94,9 @@ public class NodeLink extends AnchorPane {
 		    public void handle(MouseEvent mouseEvent) {
 		        double v = 0;
 		        double a = 0;
+		        CircuitData.printCircuit();
+		        v = CircuitData.v;
+		        a = CircuitData.a;
 		        //source.calculateVoltages();
 		        //v = source.vOutput;
 		        //a = source.aOutput;
@@ -104,8 +107,7 @@ public class NodeLink extends AnchorPane {
 		});
 	}
 	
-
-	public void setStart(Point2D startPoint) {
+public void setStart(Point2D startPoint) {
 
 		node_link.setStartX(startPoint.getX());
 		
@@ -121,8 +123,6 @@ public class NodeLink extends AnchorPane {
 
 
 	public void bindEnds (DraggableNode source, DraggableNode target) {
-		this.source = source;
-		this.target = target;
 		node_link.startXProperty().bind(
 				Bindings.add(source.layoutXProperty(), (source.getWidth() / 2.0)));
 
@@ -149,17 +149,22 @@ public class NodeLink extends AnchorPane {
 		}
 		//non starting node
 		else {
+				
 				if((CircuitData.isVoltmeter(source))||(CircuitData.isVoltmeter(target))){
 					System.out.println("connecting to a voltmeter");
 					//whether voltmeter is placed porperly
 					//voltmeterWork()
+					
 				}
+				
 				else {
 					if(!target.equals(CircuitData.circuit.get(0)))
 					CircuitData.circuit.add(target);
 					
 					CircuitData.addPair(source,target);
-					CircuitData.printCircuit();					
+					CircuitData.printCircuit();	
+					CircuitData.volMeterWork();
+
 				}
 
 

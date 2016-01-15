@@ -30,11 +30,6 @@
 	rgba(255, 255, 255, 0.35);
 }
 */
-.new_items{
-	-fx-background-color: white;
-  	-fx-border-width: 2px;
-  	-fx-border-color: grey;
-}
 .hide_text_field{
 	visibility: hidden;
 }
@@ -104,7 +99,25 @@
 
 .wire{
 	-fx-background-color: white;
-	-fx-background-image: url('wire.png');
+	-fx-background-image: url('a.jpg');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.voltage{
+	-fx-background-color: white;
+	-fx-background-image: url('v.jpg');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-position: center;
+  	-fx-border-width: 2px;
+  	-fx-border-color: grey;
+}
+
+.leftpoint{
+	-fx-background-color: white;
+	-fx-background-image: url('leftpoint.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-position: center;
   	-fx-border-width: 2px;

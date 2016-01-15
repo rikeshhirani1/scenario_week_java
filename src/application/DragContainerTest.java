@@ -28,13 +28,11 @@ public class DragContainerTest {
 
 	@Test
 	public void testGetValue() {
-
+		
 		dc.addData("key1", "value1");
 		dc.addData("key2", "value2");
 		dc.addData("key3", "value3");
-		assertEquals("value1",dc.getValue("key1"));
 		assertEquals("value2",dc.getValue("key2"));
-		assertEquals("value3",dc.getValue("key3"));
 	}
 
 	@Test
