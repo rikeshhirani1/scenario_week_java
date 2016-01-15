@@ -38,7 +38,7 @@
                <children>
                   <TextField fx:id="text_field" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="30.0" styleClass="text_field" />
                   <Label fx:id="unit_label" prefHeight="24.0" prefWidth="44.0" text="" />
-                  <Button fx:id="btn" prefHeight="15.0" prefWidth="90.0" text="Update"/>
+                  <Button fx:id="btn" onAction="#updateVal" prefHeight="15.0" prefWidth="90.0" text="Update" />
                </children>
             </HBox>
          </children>

@@ -107,7 +107,12 @@ public class DraggableNode extends AnchorPane {
 			});
 
 		}
-
+		public void updateVal(){
+			System.out.println("dd");
+			CircuitData.AmmeterWork();
+			CircuitData.volMeterWork();
+			CircuitData.printVolts();
+		}
 		public void registerLink(String linkId) {
 			mLinkIds.add(linkId);
 		}

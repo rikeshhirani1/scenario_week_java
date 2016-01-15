@@ -92,17 +92,18 @@ public class NodeLink extends AnchorPane {
 				);
 		this.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent mouseEvent) {
-		        double v = 0;
+		        double v;
 		        double a = 0;
-		        CircuitData.printCircuit();
-		        v = CircuitData.v;
-		        a = CircuitData.a;
+		        //CircuitData.printCircuit();
+		       
+		        CircuitData.printVolts();
+		        
 		        //source.calculateVoltages();
 		        //v = source.vOutput;
 		        //a = source.aOutput;
 		        //target.vInput = v;
 		        //target.aInput = a;
-		        RootLayout.setMeters(v, a);
+		        //RootLayout.setMeters(v, a);
 		    }
 		});
 	}

@@ -141,8 +141,16 @@ public  class CircuitData {
 		{}
 		else {
 			v = CircuitData.defaultVoltage*getResistanceInVoltmeter()/getTotalResistance();
+			System.out.print(v + "" + a);
 			RootLayout.setMeters(v,a);
 			System.out.println("voltage = "+CircuitData.defaultVoltage*getResistanceInVoltmeter()/getTotalResistance());
 		}
 	}
+	
+	public static void printVolts(){
+		   System.out.print(v +  " "  + a);
+			RootLayout.setMeters(v,a);
+			
+		}
+	
 }
